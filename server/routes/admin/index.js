@@ -16,8 +16,9 @@ module.exports = app => {
   })
 
   // 分类列表
+  /* populate: 查找关联信息，获得对应的分类对象 */
   router.get('/categories', async (req, res) => {
-    const items = await Category.find().limit(10)
+    const items = await Category.find().populate('parent').limit(10)
     res.send(items)
   })
 
