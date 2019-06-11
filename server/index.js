@@ -8,6 +8,9 @@ app.use(express.json())
 require('./plugins/db')(app)
 require('./routes/admin')(app)
 
+// 允许访问uploads文件夹
+app.use('/uploads', express.static(__dirname + '/uploads'))
+
 app.listen(3000, () => {
   console.log('http://localhost:3000');
 });
