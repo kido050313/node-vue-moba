@@ -1,5 +1,7 @@
 module.exports = app => {
   const express = require('express')
+  const jwt = require('jsonwebtoken')
+
   const router = express.Router({
     mergeParams: true
   })
@@ -19,7 +21,10 @@ module.exports = app => {
 
   // 资源列表
   /* populate: 查找关联信息，获得对应的分类对象 */
-  router.get('/', async (req, res) => {
+  router.get('/', async (req, res, nex) => {
+    const token = String(req.headers.authorization || '').split(' ').pop()
+    const tokenData = jwt.verify(token, app.get('secret'))
+  }, async (req, res) => {
     const queryOptions = {}
     if (req.Model.modelName === 'Category') {
       queryOptions.populate = 'parent'
@@ -58,5 +63,30 @@ module.exports = app => {
     const file = req.file
     file.url = `http://localhost:3000/uploads/${file.filename}`
     res.send(file)
+  })
+
+  //登录接口
+  app.post('/admin/api/login', async (req, res) => {
+    const { username, password } = req.body // 解构赋值
+    // 1.根据用户名找用户
+    const AdminUser = require('../../models/AdminUser')
+    const user = await AdminUser.findOne({username}).select('+password')
+    if (!user) {
+      return res.status(422).send({
+        message: '用户不存在'
+      })
+    }
+
+    const isValid = require('bcrypt').compareSync(password, user.password)
+    // 2.校验密码
+    if(!isValid) {
+      return res.status(422).send({
+        message: '密码错误'
+      })
+    }
+
+    // 3.返回token
+    const token = jwt.sign({id: user._id}, app.get('secret')) // get只能查一个参数
+    res.send({token})
   })
 }

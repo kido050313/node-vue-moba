@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Home from './views/Home.vue'
+import Login from './views/Login.vue'
 import Main from './views/Main.vue'
 import CategoryEdit from './views/CategoryEdit.vue'
 import CategoryList from './views/CategoryList.vue'
@@ -11,10 +11,20 @@ import ItemList from './views/ItemList.vue'
 import HeroEdit from './views/HeroEdit.vue'
 import HeroList from './views/HeroList.vue'
 
+import ArticleEdit from './views/ArticleEdit.vue'
+import ArticleList from './views/ArticleList.vue'
+
+import AdEdit from './views/AdEdit.vue'
+import AdList from './views/AdList.vue'
+
+import AdminUserEdit from './views/AdminUserEdit.vue'
+import AdminUserList from './views/AdminUserList.vue'
+
 Vue.use(Router)
 
 export default new Router({
   routes: [
+    {path: '/login', name: 'login', component: Login},
     {
       path: '/',
       name: 'main',
@@ -30,7 +40,19 @@ export default new Router({
 
         { path: '/heroes/create', component: HeroEdit },
         { path: '/heroes/edit/:id', component: HeroEdit, props: true },
-        { path: '/heroes/list', component: HeroList }
+        { path: '/heroes/list', component: HeroList },
+
+        { path: '/articles/create', component: ArticleEdit },
+        { path: '/articles/edit/:id', component: ArticleEdit, props: true },
+        { path: '/articles/list', component: ArticleList },
+
+        { path: '/ads/create', component: AdEdit },
+        { path: '/ads/edit/:id', component: AdEdit, props: true },
+        { path: '/ads/list', component: AdList },
+
+        { path: '/admin_users/create', component: AdminUserEdit },
+        { path: '/admin_users/edit/:id', component: AdminUserEdit, props: true },
+        { path: '/admin_users/list', component: AdminUserList }
       ]
     },
 
