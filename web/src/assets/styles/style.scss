@@ -1,3 +1,5 @@
+@import './variables.scss';
+
 // reset
 * {
   box-sizing: border-box;
@@ -11,22 +13,12 @@ body {
   font-family: Arial, Helvetica, sans-serif;
   line-height: 1.2em;
   background: #f1f1f1;
+  -webkit-font-smoothing: antialiased;
 }
 a {
   color: #999;
 }
 
-// color 键与颜色名重名时，用“”引起来
-$colors: (
-  primary: #db9e3f,
-  "white": #fff,
-  "black": #000,
-  "dark": #222,
-  "gray": #999,
-  "gray-1": #666,
-  "light": #f9f9f9,
-  "dark-l":#333,
-);
 @each $colorKey, $color in $colors {
   .text-#{$colorKey} {
     color: $color
@@ -43,58 +35,58 @@ $colors: (
   }
 }
 
-// font-size 1rem=13px
-$base-font-size: 1rem;
-$font-size: (
-  xxs: 0.6154, // 10px
-  xs: 0.7692, // 10px
-  sm: 0.9231, // 12px
-  md: 1, // 13px
-  lg: 1.7692, // 14px
-  xl: 1.2308, // 16px
-);
-
 @each $sizeKey, $size in $font-size {
   .fs-#{$sizeKey} {
     font-size: $size * $base-font-size;
   }
 }
 
+// width, height
+.w-100 {
+  width: 100%;
+}
+
+.h-100 {
+  height: 100%;
+}
+
+// display
+.display-block {
+  display: block;
+}
+
+.display-inline {
+  display: inline;
+}
+
+.display-inline-block {
+  display: inline-block;
+}
+
 // flex
+
 .d-flex {
   display: flex;
 }
 .flex-column {
   flex-direction: column;
 }
-flex-1 {
+.flex-1 {
   flex: 1;
 }
 .flex-grow-1 {
   flex-grow: 1;
 }
-$flex-jc: (
-  start: flex-start,
-  end: flex-end,
-  center: center,
-  between: space-between,
-  around: space-around,
-);
+.flex-wrap {
+  flex-wrap: wrap;
+}
+
 
 @each $jcKey, $value in $flex-jc {
   .jc-#{$jcKey} {
     justify-content: $value
   }
 };
-
-$flex-ai: (
-  start: flex-start,
-  end: flex-end,
-  center: center,
-  between: space-between,
-  around: space-around,
-  stretch: stretch,
-);
 
 @each $key, $value in $flex-ai {
   .ai-#{$key} {
@@ -103,11 +95,6 @@ $flex-ai: (
 };
 
 // spacing
-// .mt-1 => margin top level 1
-$spacing-types: (m: margin, p: padding);
-$spacing-directions: (t: top, r: right, b: bottom, l: left);
-$spacing-base-size: 1rem;
-$spacing-sizes: (0: 0, 1: 0.25, 2: 0.5, 3: 1, 4: 1.5, 5: 3);
 
 @each $typeKey, $type in $spacing-types {
   // .m-1
@@ -136,5 +123,86 @@ $spacing-sizes: (0: 0, 1: 0.25, 2: 0.5, 3: 1, 4: 1.5, 5: 3);
         #{$type}-#{$direction}: $size * $spacing-base-size;
       }
     }
+  }
+}
+
+// button
+.btn {
+  border: none;
+  border-radius: 0.1538rem;
+  font-size: map-get($font-size, 'sm' ) * $base-font-size;
+  padding: 0.2rem 0.5rem;
+}
+
+// nav
+.nav {
+  .nav-item {
+    border-bottom: 3px solid transparent; // 保证nav对齐
+    padding-bottom: 0.2rem;
+    &.active {
+      border-bottom: 3px solid #fff;
+    }
+  }
+}
+
+// sprite
+.sprite {
+  background: url(../images/index.png) no-repeat 0 0;
+  background-size: 28.8462rem;
+  display: inline-block;
+  &.sprite-news {
+    width: 1.7692rem;
+    height: 1.5385rem;
+    background-position: 63.546% 15.517%;
+  }
+  &.sprite-story {
+    width: 1.7692rem;
+    height: 1.5385rem;
+    background-position: 90.483% 15.614%;
+  }
+  &.sprite-shop {
+    width: 1.7692rem;
+    height: 1.5385rem;
+    background-position: 36.746% 0.924%;
+  }
+  &.sprite-experience {
+    width:  1.5385rem;
+    height: 1.5385rem;
+    background-position: 10.408% 15.517%;
+  }
+  &.sprite-newcomer{
+    width: 1.5385rem;
+    height: 1.6154rem;
+    background-position: 89.733% 1.266%;
+  }
+  &.sprite-glory {
+    width: 1.8462rem;
+    height: 1.5385rem;
+    background-position: 36.467% 15.287%;
+  }
+  &.sprite-community {
+    width: 2rem;
+    height: 1.6154rem;
+    background-position: 9.728% 1.266%;
+  }
+  &.sprite-camp {
+    width: 1.8462rem;
+    height: 1.8462rem;
+    background-position: 63.3% 0.927%;
+  }
+  &.sprite-no-public{
+    width: 1.8462rem;
+    height: 1.5385rem;
+    background-position: 0 96.207%;
+  }
+  &.sprite-introduce{
+    width: 1.8462rem;
+    height: 1.5385rem;
+    background-position: 36.467% 15.287%;
+  }  
+  &.sprite-arrow {
+    width: 0.7692rem;
+    height: 0.7692rem;
+    background-position: 38.577% 52.076%;
   }
 }
