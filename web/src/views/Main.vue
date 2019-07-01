@@ -8,8 +8,8 @@
       </div>
       <button type="button" class="btn bg-primary">立即下载</button>
     </div>
-    <div class="nav bg-primary pt-3 pb-2">
-      <div class="nav d-flex text-white jc-around pb-1">
+    <div class="bg-primary pt-3 pb-2">
+      <div class="nav nav-inverse jc-around pb-1">
         <div class="nav-item active">
           <router-link class="nav-link" tag="div" to="/">首页</router-link>
         </div>
@@ -29,3 +29,11 @@ export default({
 
 })
 </script>
+<style lang="scss" scoped>
+  .topbar {
+    position: sticky; // 吸顶效果（新设备支持）
+    top: 0;
+    z-index: 999;
+  }
+</style>
+

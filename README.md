@@ -12,4 +12,9 @@ admin: 后台
 4. 常用边距定义（margin,padding @each嵌套使用）
 5. 首页顶部下载部分以及导航栏制作，transparent的作用
 6. 首页banner制作（vue-awesome-swiper）, scoped影响分页器样式不起效果，！important + 局部样式限定解决
-7. sprite 雪碧图 ，借助http://www.spritecow.com/网站可快速找到position
+7. 首页顶部轮播图
+8. sprite 雪碧图 ，借助http://www.spritecow.com/网站可快速找到position
+9. 字体图标（iconfont的下载使用）
+10. 新闻资讯卡片组件(Card.vue， slot的使用)
+11. 列表卡片组件(具名插槽的使用和传值[https://cn.vuejs.org/v2/guide/components-slots.html#具名插槽的缩写])
+12. 
