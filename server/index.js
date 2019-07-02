@@ -9,6 +9,7 @@ app.use(express.json())
 
 require('./plugins/db')(app)
 require('./routes/admin')(app)
+require('./routes/web')(app)
 
 // 允许访问uploads文件夹
 app.use('/uploads', express.static(__dirname + '/uploads'))

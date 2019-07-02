@@ -3,4 +3,7 @@ module.exports = app => {
   mongoose.connect('mongodb://127.0.0.1:27017/node-vue-moba', {
     useNewUrlParser: true
   })
+
+  // 引入models内所有文件
+  require('require-all')(__dirname + '/../models')
 }
