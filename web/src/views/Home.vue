@@ -31,11 +31,11 @@
 
     <list-card icon="menu" title="新闻资讯" :categories="newCats">
       <template #items="{category}">
-        <div class="py-2" v-for="(news, index) in category.newsList" :key="index">
-            <span>[{{news.categoryName}}]</span>
-            <span>|</span>
-            <span>{{news.title}}</span>
-            <span>{{news.date}}</span>
+        <div class="py-2 fs-lg d-flex" v-for="(news, index) in category.newsList" :key="index">
+            <span class="text-info">[{{news.categoryName}}]</span>
+            <span class="px-2">|</span>
+            <span class="flex-1 text-dark-1 text-ellipsis pr-2">{{news.title}}</span>
+            <span class="text-gray-1 fs-sm">{{news.createdAt | date}}</span>
           </div>
       </template>
     </list-card>
@@ -48,7 +48,13 @@
 
 <script>
 import listCard from "../components/listCard.vue";
+import dayjs from 'dayjs'; // 格式化时间插件 
 export default {
+  filters: {
+    date(val) {
+      return dayjs(val).format('MM/DD')
+    }
+  },
   name: "home",
   data() {
     return {
@@ -57,49 +63,18 @@ export default {
           el: ".pagination-home"
         }
       },
-      newCats: [
-        {
-          name: '热门',
-          newsList: new Array(5).fill({}).map(v => ({
-            categoryName: '新闻',
-            title: '6月29日全服不停机修复公告',
-            date: '07/01'
-          }))
-        },
-        {
-          name: '新闻',
-          newsList: new Array(5).fill({}).map(v => ({
-            categoryName: '新闻',
-            title: '6月29日全服不停机修复公告',
-            date: '07/01'
-          }))
-        },
-        {
-          name: '公告',
-          newsList: new Array(5).fill({}).map(v => ({
-            categoryName: '公告',
-            title: '6月29日全服不停机修复公告',
-            date: '07/01'
-          }))
-        },
-        {
-          name: '活动',
-          newsList: new Array(5).fill({}).map(v => ({
-            categoryName: '活动',
-            title: '6月29日全服不停机修复公告',
-            date: '07/01'
-          }))
-        },
-        {
-          name: '赛事',
-          newsList: new Array(5).fill({}).map(v => ({
-            categoryName: '赛事',
-            title: '6月29日全服不停机修复公告',
-            date: '07/01'
-          }))
-        },
-      ]
+      newCats: []
     }
+  },
+  methods: {
+    async fetchNewsCats() {
+      const res = await this.$http.get('news/list');
+      console.log(res.data)
+      this.newCats = res.data;
+    }
+  },
+  created() {
+    this.fetchNewsCats()
   },
   components: {
     listCard

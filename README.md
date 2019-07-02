@@ -19,3 +19,4 @@ admin: 后台
 11. 列表卡片组件(具名插槽的使用和传值[https://cn.vuejs.org/v2/guide/components-slots.html#具名插槽的缩写])
 12. 测试环境利用mongoose快速录入测试数据，（lean(),deleteMany() insertMany(), 随机排序，引入model等）
 13. 首页新闻资讯，mongoose聚合函数（aggregate）查询数据，将数据处理成前端需要的格式。
+14. 首页新闻资讯对接接口，界面展示（axios,dayjs插件）

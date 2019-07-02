@@ -89,7 +89,7 @@ module.exports = app => {
     cats.map(cat => {
       cat.newsList.map( news => {
         news.categoryName = (cat.name === '热门')
-        ? news.categories[0].name : cate.name;
+        ? news.categories[0].name : cat.name;
         return news;
       })
     })
