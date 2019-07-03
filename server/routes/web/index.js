@@ -165,6 +165,12 @@ module.exports = app => {
       categories: {$in: data.categories}
     }).limit(2)
     res.send(data)
+  });
+
+  // 英雄详情
+  router.get('/heroes/:id', async(req, res) => {
+    const data = await Hero.findById(req.params.id).lean();
+    res.send(data)
   })
 
   app.use('/web/api', router)

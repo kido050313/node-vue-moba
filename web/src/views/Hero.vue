@@ -1,0 +1,38 @@
+<template>
+  <div class="page-hero" v-if="model">
+    <div class="topbar bg-black py-2 px-3 d-flex ai-center text-white">
+      <img src="../assets/images/logo.png" height="30">
+      <div class="px-2 flex-1">
+        <span>王者荣耀</span>
+        <span class="ml-3">攻略战</span>
+      </div>
+      <router-link to="/" tag="div">更多英雄 &gt;</router-link>
+    </div>
+    <div>{{model.name}}</div>
+  </div>
+</template>
+<script>
+export default {
+  name: 'Hero',
+  props: {
+    id: {required: true}
+  },
+  data() {
+    return {
+      model: null
+    }
+  },
+  methods: {
+    async fetch() {
+      const res = await this.$http.get(`heroes/${this.id}`);
+      this.model = res.data;
+    }
+  },
+  created() {
+    this.fetch()
+  }
+}
+</script>
+<style lang="scss" scoped>
+
+</style>
