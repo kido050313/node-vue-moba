@@ -21,3 +21,4 @@ admin: 后台
 13. 首页新闻资讯，mongoose聚合函数（aggregate）查询数据，将数据处理成前端需要的格式。
 14. 首页新闻资讯对接接口，界面展示（axios,dayjs插件）
 15. 录入英雄数据
+16. 首页英雄列表对接接口，界面展示（swiper: autoHeight）

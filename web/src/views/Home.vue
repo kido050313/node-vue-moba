@@ -32,11 +32,22 @@
     <list-card icon="menu" title="新闻资讯" :categories="newCats">
       <template #items="{category}">
         <div class="py-2 fs-lg d-flex" v-for="(news, index) in category.newsList" :key="index">
-            <span class="text-info">[{{news.categoryName}}]</span>
-            <span class="px-2">|</span>
-            <span class="flex-1 text-dark-1 text-ellipsis pr-2">{{news.title}}</span>
-            <span class="text-gray-1 fs-sm">{{news.createdAt | date}}</span>
+          <span class="text-info">[{{news.categoryName}}]</span>
+          <span class="px-2">|</span>
+          <span class="flex-1 text-dark-1 text-ellipsis pr-2">{{news.title}}</span>
+          <span class="text-gray-1 fs-sm">{{news.createdAt | date}}</span>
+        </div>
+      </template>
+    </list-card>
+
+    <list-card icon="card-hero" title="英雄列表" :categories="heroCats">
+      <template #items="{category}">
+        <div class="hero-slide d-flex flex-wrap">
+          <div class="hero-list p-2 text-center" v-for="(hero, index) in category.heroList" :key="index">
+            <img class="w-100" :src="hero.avatar">
+            <span class="display-block">{{hero.name}}</span>
           </div>
+        </div>
       </template>
     </list-card>
     <!-- <m-card icon="card-hero" title="英雄列表"></m-card>
@@ -63,18 +74,23 @@ export default {
           el: ".pagination-home"
         }
       },
-      newCats: []
+      newCats: [],
+      heroCats: []
     }
   },
   methods: {
     async fetchNewsCats() {
       const res = await this.$http.get('news/list');
-      console.log(res.data)
       this.newCats = res.data;
-    }
+    },
+    async fetchHeroCats() {
+      const res = await this.$http.get('heroes/list');
+      this.heroCats = res.data;
+    },
   },
   created() {
-    this.fetchNewsCats()
+    this.fetchNewsCats();
+    this.fetchHeroCats();
   },
   components: {
     listCard
@@ -108,4 +124,12 @@ export default {
     }
   }
 }
+
+.hero-slide {
+  margin: 0 -0.5rem;
+  .hero-list {
+    width: 20%;
+  }
+}
+
 </style>
