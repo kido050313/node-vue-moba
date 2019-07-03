@@ -24,3 +24,4 @@ admin: 后台
 16. 首页英雄列表对接接口，界面展示（swiper: autoHeight）
 17. 文章详情页界面
 18. 英雄详情数据接口web/index.js, Hero.vue获取数据
+19. 英雄详情页后台编辑（21:07）

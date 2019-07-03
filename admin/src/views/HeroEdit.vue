@@ -2,8 +2,8 @@
   <div class="about">
     <h1>{{id ? '编辑': '新建'}}英雄</h1>
     <el-form label-width="120px" @submit.native.prevent="save">
-      <el-tabs type="border-card">
-        <el-tab-pane label="基础信息">
+      <el-tabs value="basic" type="border-card">
+        <el-tab-pane label="基础信息" name="basic">
           <el-form-item label="名称">
             <el-input v-model="model.name"></el-input>
           </el-form-item>
@@ -13,12 +13,24 @@
           <el-form-item label="头像">
             <el-upload
               class="avatar-uploader"
-              :action="$http.defaults.baseURL + '/upload'"
+              :action="uploadUrl"
               :headers="getAuthHeaders()"
               :show-file-list="false"
-              :on-success="afterUpload"
+              :on-success="res => $set(model, 'avatar', res.url)"
             >
               <img v-if="model.avatar" :src="model.avatar" class="avatar">
+              <i v-else class="el-icon-plus avatar-uploader-icon"></i>
+            </el-upload>
+          </el-form-item>
+          <el-form-item label="Banner">
+            <el-upload
+              class="avatar-uploader"
+              :action="uploadUrl"
+              :headers="getAuthHeaders()"
+              :show-file-list="false"
+              :on-success="res => $set(model, 'banner', res.url)"
+            >
+              <img v-if="model.banner" :src="model.banner" class="avatar">
               <i v-else class="el-icon-plus avatar-uploader-icon"></i>
             </el-upload>
           </el-form-item>
@@ -79,7 +91,7 @@
               <el-form-item label="图标">
                 <el-upload
                   class="avatar-uploader"
-                  :action="$http.defaults.baseURL + '/upload'"
+                  :action="uploadUrl"
                   :headers="getAuthHeaders()"
                   :show-file-list="false"
                   :on-success="res => $set(item, 'icon', res.url)"
@@ -124,9 +136,9 @@ export default {
     };
   },
   methods: {
-    afterUpload(res) {
-      this.$set(this.model, "avatar", res.url);
-    },
+    // afterUpload(res) {
+    //   this.$set(this.model, "avatar", res.url);
+    // },
     async save() {
       let res;
       if (this.id) {

@@ -4,6 +4,7 @@ const schema = new mongoose.Schema({
   name: { type: String },
   title: { type: String },
   avatar: { type: String },
+  banner: { type: String },
   categories: [{ type: mongoose.SchemaTypes.ObjectId, ref: 'Category' }], // 分类多选
   scores: { // object类型
     difficult: {type: Number},
