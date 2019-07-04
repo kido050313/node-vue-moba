@@ -18,7 +18,7 @@
               :show-file-list="false"
               :on-success="res => $set(model, 'avatar', res.url)"
             >
-              <img v-if="model.avatar" :src="model.avatar" class="avatar">
+              <img v-if="model.avatar" :src="model.avatar" class="avatar" />
               <i v-else class="el-icon-plus avatar-uploader-icon"></i>
             </el-upload>
           </el-form-item>
@@ -30,7 +30,7 @@
               :show-file-list="false"
               :on-success="res => $set(model, 'banner', res.url)"
             >
-              <img v-if="model.banner" :src="model.banner" class="avatar">
+              <img v-if="model.banner" :src="model.banner" class="avatar" />
               <i v-else class="el-icon-plus avatar-uploader-icon"></i>
             </el-upload>
           </el-form-item>
@@ -81,8 +81,10 @@
             <el-input type="textarea" v-model="model.teamTips"></el-input>
           </el-form-item>
         </el-tab-pane>
-        <el-tab-pane label="技能管理">
-          <el-button size="small" @click="model.skills.push({})"><i class="el-icon-plus">添加技能</i></el-button>
+        <el-tab-pane label="技能" name="skills">
+          <el-button size="small" @click="model.skills.push({})">
+            <i class="el-icon-plus">添加技能</i>
+          </el-button>
           <el-row type="flex" style="flex-wrap: wrap;">
             <el-col :md="12" v-for="(item, index) in model.skills" :key="index">
               <el-form-item label="名称">
@@ -96,15 +98,96 @@
                   :show-file-list="false"
                   :on-success="res => $set(item, 'icon', res.url)"
                 >
-                  <img v-if="item.icon" :src="item.icon" class="avatar">
+                  <img v-if="item.icon" :src="item.icon" class="avatar" />
                   <i v-else class="el-icon-plus avatar-uploader-icon"></i>
                 </el-upload>
+              </el-form-item>
+              <el-form-item label="冷却值">
+                <el-input v-model="item.delay"></el-input>
+              </el-form-item>
+              <el-form-item label="消耗">
+                <el-input v-model="item.cost"></el-input>
               </el-form-item>
               <el-form-item label="描述">
                 <el-input v-model="item.description" type="textarea"></el-input>
               </el-form-item>
               <el-form-item label="小提示">
                 <el-input v-model="item.tips" type="textarea"></el-input>
+              </el-form-item>
+              <el-form-item>
+                <el-button size="small" type="danger" @click="model.skills.splice(index, 1)">删除</el-button>
+              </el-form-item>
+            </el-col>
+          </el-row>
+        </el-tab-pane>
+        <el-tab-pane label="最佳搭档" name="partners">
+          <el-button size="small" @click="model.partners.push({})">
+            <i class="el-icon-plus">添加英雄</i>
+          </el-button>
+          <el-row type="flex" style="flex-wrap: wrap;">
+            <el-col :md="12" v-for="(item, index) in model.partners" :key="index">
+              <el-form-item label="名称">
+                <el-select filterable v-model="item.hero">
+                  <el-option
+                    v-for="hero in heroes"
+                    :key="hero._id"
+                    :value="hero._id"
+                    :label="hero.name"
+                  ></el-option>
+                </el-select>
+              </el-form-item>
+              <el-form-item label="描述">
+                <el-input v-model="item.description" type="textarea"></el-input>
+              </el-form-item>
+              <el-form-item>
+                <el-button size="small" type="danger" @click="model.skills.splice(index, 1)">删除</el-button>
+              </el-form-item>
+            </el-col>
+          </el-row>
+        </el-tab-pane>
+        <el-tab-pane label="被谁克制" name="enemies">
+          <el-button size="small" @click="model.enemies.push({})">
+            <i class="el-icon-plus">添加英雄</i>
+          </el-button>
+          <el-row type="flex" style="flex-wrap: wrap;">
+            <el-col :md="12" v-for="(item, index) in model.enemies" :key="index">
+              <el-form-item label="名称">
+                <el-select filterable v-model="item.hero">
+                  <el-option
+                    v-for="hero in heroes"
+                    :key="hero._id"
+                    :value="hero._id"
+                    :label="hero.name"
+                  ></el-option>
+                </el-select>
+              </el-form-item>
+              <el-form-item label="描述">
+                <el-input v-model="item.description" type="textarea"></el-input>
+              </el-form-item>
+              <el-form-item>
+                <el-button size="small" type="danger" @click="model.skills.splice(index, 1)">删除</el-button>
+              </el-form-item>
+            </el-col>
+          </el-row>
+        </el-tab-pane>
+        <el-tab-pane label="克制谁" name="countes">
+          <el-button size="small" @click="model.countes.push({})">
+            <i class="el-icon-plus">添加英雄</i>
+          </el-button>
+          <el-row type="flex" style="flex-wrap: wrap;">
+            <el-col :md="12" v-for="(item, index) in model.countes" :key="index">
+              <el-form-item label="名称">
+                <el-select filterable v-model="item.hero">
+                  <el-option
+                    v-for="hero in heroes"
+                    :key="hero._id"
+                    :value="hero._id"
+                    :label="hero.name"
+                  ></el-option>
+                </el-select>
+              </el-form-item>
+              <el-form-item label="描述">
+                <el-input v-model="item.description" type="textarea"></el-input>
               </el-form-item>
               <el-form-item>
                 <el-button size="small" type="danger" @click="model.skills.splice(index, 1)">删除</el-button>
@@ -128,11 +211,17 @@ export default {
   data() {
     return {
       model: {
+        name: "",
+        avatar: "",
         scores: {},
-        skills: []
+        skills: [],
+        partners: [],
+        enemies: [],
+        countes: []
       },
       categories: [],
-      items: []
+      items: [],
+      heroes: []
     };
   },
   methods: {
@@ -163,11 +252,16 @@ export default {
     async fetchItems() {
       const res = await this.$http.get(`rest/items`);
       this.items = res.data; // 防止scores被新model干掉
+    },
+    async fetchHeroes() {
+      const res = await this.$http.get(`rest/heroes`);
+      this.heroes = res.data; // 防止scores被新model干掉
     }
   },
   created() {
     this.fetchItems();
     this.fetchCategories();
+    this.fetchHeroes();
     this.id && this.fetch();
   }
 };
