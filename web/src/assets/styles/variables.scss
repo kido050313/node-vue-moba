@@ -4,11 +4,17 @@ $colors: (
   'primary': #db9e3f,
   'info': #4b67af,
   'blue': #4394e4,
+  'blue-1': #1f3695,
+  'danger': #791a16,
   'white': #fff,
+  'white-1': #fcfcfc,
+  'white-2': #eceef0,
   'light': #f9f9f9,
   'light-1': #d4d9de,
   'gray': #999,
   'gray-1': #666,
+  'gray-2':#7a7a80,
+  'dark-light':#343440,
   'dark-l':#333,
   'dark': #222,
   'black': #000
@@ -25,6 +31,7 @@ $font-size: (
   sm: 0.9231, // 12px
   md: 1, // 13px
   lg: 1.0769, // 14px
+  lmg: 1.1538, // 15px
   xl: 1.2308, // 16px
 );
 
