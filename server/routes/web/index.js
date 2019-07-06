@@ -171,7 +171,7 @@ module.exports = app => {
   router.get('/heroes/:id', async(req, res) => {
     const data = await Hero
     .findById(req.params.id)
-    .populate('categories items1 items2 partners.hero')
+    .populate('categories items1 items2 partners.hero enemies.hero countes.hero')
     .lean();
     res.send(data)
   })
