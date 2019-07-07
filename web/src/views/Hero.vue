@@ -32,15 +32,15 @@
     <div>
       <div class="bg-white px-3">
         <div class="nav jc-around pt-3 py-2 border-bottom">
-          <div class="nav-item active"
-          :class="{active : active === '0'}"
-          @click="$refs.listSwiper.swiper.slideTo('0')">
+          <div class="nav-item"
+          :class="{active : active === 0}"
+          @click="$refs.listSwiper.swiper.slideTo(0)">
             <div class="nav-link">英雄初识</div>
           </div>
           <div
           class="nav-item"
           :class="{active : active === 1}"
-          @click="$refs.listSwiper.swiper.slideTo('1')">
+          @click="$refs.listSwiper.swiper.slideTo(1)">
             <div class="nav-link">进阶攻略</div>
           </div>
         </div>
@@ -128,18 +128,17 @@
               <div class="border-bottom mt-3"></div>
 
               <div class="fs-lmg mt-2">被谁克制</div>
-              <div class="d-flex pt-3" v-for="(item, index) in model.enemies" :key="index">
+              <div class="d-flex pt-3" v-for="(item, index) in model.enemies" :key="'enemies-'+index">
                 <img height="48" :src="item.hero.avatar" />
                 <p class="flex-1 m-0 ml-3 text-dark-light">{{item.description}}</p>
               </div>
               <div class="border-bottom mt-3"></div>
 
               <div class="fs-lmg mt-2">克制谁</div>
-              <div class="d-flex pt-3" v-for="(item, index) in model.countes" :key="index">
+              <div class="d-flex pt-3" v-for="(item, index) in model.countes" :key="'item-'+index">
                 <img height="48" :src="item.hero.avatar" />
                 <p class="flex-1 m-0 ml-3 text-dark-light">{{item.description}}</p>
               </div>
-              <div class="border-bottom mt-3"></div>
             </m-card>
           </div>
         </swiper-slide>

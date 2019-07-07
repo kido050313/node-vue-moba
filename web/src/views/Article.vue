@@ -2,8 +2,8 @@
   <div class="page-article" v-if="model">
     <div class="d-flex py-3 px-1 bor">
       <i class="iconfont icon-Back text-blue"></i>
-      <strong class="flex-1 text-blue pl-2">{{model.title}}</strong>
-      <div class="text-gray fs-xs">2019-06-19</div>
+      <strong class="flex-1 text-blue pl-2 text-ellipsis">{{model.title}}</strong>
+      <div class="text-gray fs-xs ml-4">2019-06-19</div>
     </div>
     <div v-html="model.body" class="body px-3 fs-lg"></div>
     <div class="px-3 border-top py-3">

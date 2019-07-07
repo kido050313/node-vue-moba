@@ -9,7 +9,10 @@
       </div>
     </div>
     <div class="pt-3">
-      <swiper ref="listSwiper" :options="{autoHeight: true}" @slide-change="() => active = $refs.listSwiper.swiper.realIndex">
+      <swiper
+      ref="listSwiper"
+      :options="{autoHeight: true, observer:true, observeParents:true}"
+      @slide-change="() => active = $refs.listSwiper.swiper.realIndex">
         <swiper-slide v-for="(category, index) in categories" :key="index">
           <slot name="items" :category="category"></slot>
         </swiper-slide>
