@@ -16,15 +16,21 @@
     <!-- end of swiper -->
 
     <div class="nav-icons text-center bg-white mt-3 pt-3 text-gray">
-      <div class="d-flex flex-wrap">
-        <div class="nav-item mb-3" v-for="item in 10" :key="item">
-          <i class="sprite sprite-news"></i>
-          <span class="display-block py-2">爆料站</span>
+      <div class="d-flex flex-wrap" v-show="!collapse">
+        <div class="nav-item mb-3" v-for="(item, index) in icons" :key="index">
+          <i class="sprite" :class="`sprite-${item.icon}`"></i>
+          <span class="display-block py-1">{{item.text}}</span>
         </div>
       </div>
-      <div class="bg-light py-2 fs-sm">
-        <i class="sprite sprite-arrow"></i>
-        <span class="ml-1">收起</span>
+      <div class="d-flex flex-wrap" v-show="collapse">
+        <div class="nav-item mb-3" v-for="(item, index) in icons.slice(0, 4)" :key="index">
+          <i class="sprite" :class="`sprite-${item.icon}`"></i>
+          <span class="display-block py-1">{{item.text}}</span>
+        </div>
+      </div>
+      <div class="bg-light py-2 fs-sm" @click="collapse = !collapse">
+        <i class="sprite sprite-arrow" :class="{rotate: collapse === true}"></i>
+        <span class="ml-1 text-dark-l">{{collapseStatus}}</span>
       </div>
     </div>
     <!-- end of navs -->
@@ -48,17 +54,22 @@
     <list-card icon="card-hero" title="英雄列表" :categories="heroCats">
       <template #items="{category}">
         <div class="hero-slide d-flex flex-wrap">
-          <router-link tag="div" :to="`/heroes/${hero._id}`" class="hero-list p-2 text-center" v-for="(hero, index) in category.heroList" :key="index">
+          <router-link
+           tag="div"
+           :to="`/heroes/${hero._id}`"
+           class="hero-list p-2 text-center"
+           v-for="(hero, index) in category.heroList"
+           :key="index">
             <img class="w-100" :src="hero.avatar">
             <span class="display-block">{{hero.name}}</span>
           </router-link>
         </div>
       </template>
     </list-card>
-    <!-- <m-card icon="card-hero" title="英雄列表"></m-card>
-    <m-card icon="video" title="精彩视频"></m-card>
-    <m-card icon="gonglve" title="图文攻略"></m-card> -->
 
+    <list-card  icon="menu" title="精彩视频" :categories="newCats">
+
+    </list-card>
   </div>
 </template>
 
@@ -81,8 +92,29 @@ export default {
           el: ".pagination-home"
         }
       },
+      icons: [
+        { 'text': '爆料站', 'icon': 'news' },
+        { 'text': '故事站', 'icon': 'story' },
+        { 'text': '周边商城', 'icon': 'shop' },
+        { 'text': '体验服', 'icon': 'experience' },
+        { 'text': '新人专区', 'icon': 'newcomer' },
+        { 'text': '荣耀·传承', 'icon': 'glory' },
+        { 'text': '同人社区', 'icon': 'community' },
+        { 'text': '王者营地', 'icon': 'camp' },
+        { 'text': '公众号', 'icon': 'no-public' }
+      ],
       newCats: [],
-      heroCats: []
+      heroCats: [],
+      collapse: false, // 收起展开
+    }
+  },
+  computed: {
+    collapseStatus() {
+      if(this.collapse === false) {
+        return '收起'
+      } else {
+        return '展开'
+      }
     }
   },
   methods: {
@@ -93,7 +125,7 @@ export default {
     async fetchHeroCats() {
       const res = await this.$http.get('heroes/list');
       this.heroCats = res.data;
-    },
+    }
   },
   created() {
     this.fetchNewsCats();
@@ -128,6 +160,11 @@ export default {
     border-right: 1px solid $border-color;
     &:nth-child(4n) {
       border-right: none;
+    }
+  }
+  .sprite-arrow{
+    &.rotate {
+      transform: rotate(180deg);
     }
   }
 }
