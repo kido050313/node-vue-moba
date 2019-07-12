@@ -3,7 +3,7 @@
     <div class="card-header d-flex ai-center" :class="{'border-bottom': !plain, 'pb-3': !plain}">
       <i class="iconfont" :class="`icon-${icon}`"></i>
       <div class="fs-xl flex-1 px-2">{{title}}</div>
-      <i class="iconfont icon-menu1" v-if="!plain"></i>
+      <i class="iconfont icon-menu1 fs-xxl" v-if="!plain"></i>
     </div>
     <div class="card-body pt-2">
       <slot></slot>

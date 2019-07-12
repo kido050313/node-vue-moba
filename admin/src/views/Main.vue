@@ -21,6 +21,16 @@
             <el-menu-item index="/articles/create">新建文章</el-menu-item>
             <el-menu-item index="/articles/list">文章列表</el-menu-item>
           </el-menu-item-group>
+          <el-menu-item-group>
+            <template slot="title">视频</template>
+            <el-menu-item index="/videos/create">新建视频</el-menu-item>
+            <el-menu-item index="/videos/list">视频列表</el-menu-item>
+          </el-menu-item-group>
+          <el-menu-item-group>
+            <template slot="title">攻略</template>
+            <el-menu-item index="/guides/create">新建攻略</el-menu-item>
+            <el-menu-item index="/guides/list">攻略列表</el-menu-item>
+          </el-menu-item-group>
         </el-submenu>
 
         <el-submenu index="2">
