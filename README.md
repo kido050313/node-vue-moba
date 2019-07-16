@@ -27,3 +27,6 @@ admin: 后台
 19. 英雄详情页后台编辑（21:07）
 20. 英雄详情页与其他英雄关系编辑
 21. 英雄详情页界面展示，顺风出装部分（优化card组件，关联优化web.index.js英雄详情数据，完善后台英雄编辑页面，添加公共颜色，字体，样式）
+
+## 四、打包部署
+1. 添加 .env.development和vue.config.js配置文件，打包输出到server中（注意输出位置和server/index.js的配置），vue打包配置文档：[https://cli.vuejs.org/zh/config/#%E5%85%A8%E5%B1%80-cli-%E9%85%8D%E7%BD%AE]

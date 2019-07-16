@@ -12,6 +12,8 @@ require('./routes/admin')(app)
 require('./routes/web')(app)
 
 // 允许访问uploads文件夹
+app.use('/admin/', express.static(__dirname + '/admin'))
+app.use('/web/', express.static(__dirname + '/web'))
 app.use('/uploads', express.static(__dirname + '/uploads'))
 
 app.listen(3000, () => {
