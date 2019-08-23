@@ -59,8 +59,8 @@ module.exports = app => {
   const upload = multer({dest: __dirname + '../../../uploads'})
   // 图片上传
   app.post('/admin/api/upload', authMiddlewear(), upload.single('file'), async(req, res) => {
-    const file = req.file
-    file.url = `http://localhost:3000/uploads/${file.filename}`
+    const file = req.file;
+    file.url = `http://39.104.230.41/uploads/${file.filename}`
     res.send(file)
   })
 
