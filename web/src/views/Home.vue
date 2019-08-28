@@ -2,14 +2,10 @@
   <div class="home">
     <swiper :options="swiperOption" ref="mySwiper">
       <!-- slides -->
-      <swiper-slide>
-        <img class="w-100" src="../assets/images/e79fcfe4c1cf569573ff75995aead39a.jpeg" alt />
-      </swiper-slide>
-      <swiper-slide>
-        <img class="w-100" src="../assets/images/25582bda768733833c0e23468dd31cbe.jpeg" alt />
-      </swiper-slide>
-      <swiper-slide>
-        <img class="w-100" src="../assets/images/392e511db4e864fd3e6d8a7aa3ecf475.png" alt />
+      <swiper-slide v-for="(item, index) in newAds.items" :key="index">
+        <a :href="item.url">
+          <img class="w-100" :src="item.image" alt />
+        </a>
       </swiper-slide>
       <div class="swiper-pagination pagination-home px-3 pb-1" slot="pagination"></div>
     </swiper>
@@ -18,8 +14,10 @@
     <div class="nav-icons text-center bg-white mt-3 pt-3 text-gray">
       <div class="d-flex flex-wrap" v-show="!collapse">
         <div class="nav-item mb-3" v-for="(item, index) in icons" :key="index">
-          <i class="sprite" :class="`sprite-${item.icon}`"></i>
-          <span class="display-block py-1">{{item.text}}</span>
+          <a :href="item.url">
+            <i class="sprite" :class="`sprite-${item.icon}`"></i>
+            <span class="display-block py-1">{{item.text}}</span>
+          </a>
         </div>
       </div>
       <div class="d-flex flex-wrap" v-show="collapse">
@@ -93,9 +91,8 @@
           </div>
         </template>
       </list-card>
-      <div class="video-bottom bg-white text-center text-gray-2 fs-sm">点击查看更多</div>
+      <div class="video-bottom bg-white text-center text-gray-2 fs-sm">加载更多内容</div>
     </div>
-
 
   </div>
 </template>
@@ -125,16 +122,17 @@ export default {
         }
       },
       icons: [
-        { text: "爆料站", icon: "news" },
-        { text: "故事站", icon: "story" },
-        { text: "周边商城", icon: "shop" },
-        { text: "体验服", icon: "experience" },
-        { text: "新人专区", icon: "newcomer" },
-        { text: "荣耀·传承", icon: "glory" },
-        { text: "同人社区", icon: "community" },
+        { text: "爆料站", icon: "news", url: 'https://pvp.qq.com/m/m201706/coming/index.htm' },
+        { text: "故事站", icon: "story", url: 'https://pvp.qq.com/story201904/index.html#/index'},
+        { text: "周边商城", icon: "shop", url: 'http://pvp.qq.com/mall/m/' },
+        { text: "体验服", icon: "experience", url: 'https://pvp.qq.com/cp/a20161116tyf/page01.htm' },
+        { text: "新人专区", icon: "newcomer", url: 'https://pvp.qq.com/m/m201606/goCenter.shtml' },
+        { text: "荣耀·传承", icon: "glory", url: 'https://pvp.qq.com/cp/a20181130culture/index.html' },
+        { text: "同人社区", icon: "community", url: 'https://pvp.qq.com/m/fans/#/' },
         { text: "王者营地", icon: "camp" },
         { text: "公众号", icon: "no-public" }
       ],
+      newAds: [],
       newCats: [],
       heroCats: [],
       videoCats: [],
@@ -151,12 +149,17 @@ export default {
     }
   },
   methods: {
+    async fetchAds() {
+      const res = await this.$http.get("ads/list");
+      this.newAds = res.data[0];
+    },
     async fetchNewsCats() {
       const res = await this.$http.get("news/list");
       this.newCats = res.data;
     },
     async fetchHeroCats() {
       const res = await this.$http.get("heroes/list");
+      
       this.heroCats = res.data;
     },
     async fetchVideoCats() {
@@ -179,6 +182,7 @@ export default {
     }
   },
   created() {
+    this.fetchAds();
     this.fetchNewsCats();
     this.fetchHeroCats();
     this.fetchVideoCats();
@@ -212,6 +216,9 @@ export default {
     border-right: 1px solid $border-color;
     &:nth-child(4n) {
       border-right: none;
+    }
+    a {
+      text-decoration: none;
     }
   }
   .sprite-arrow {

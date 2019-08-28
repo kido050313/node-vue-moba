@@ -10,7 +10,16 @@ module.exports = app => {
   const Category = mongoose.model('Category');
   const Hero = mongoose.model('Hero');
   const Guide = mongoose.model('Guide');
+  const Ad = mongoose.model('Ad'); 
   // const Article = require('../../models/Article');
+
+
+  // 首页banner广告位
+  router.get('/ads/list', async(req, res) => {
+    const data = await Ad.find();
+
+    res.send(data);
+  })
 
   // 导入新闻数据
   router.get('/news/init', async (req, res) => {
